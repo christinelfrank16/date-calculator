@@ -22,43 +22,55 @@ export function monthValue (input){
 
 export class dateCalc {
   constructor (month, day, year){
-    this.month = month,
+    this.month = month - 1,
     this.day = day,
     this.year = year
     this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     this.numberDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+
+    const date = new Date();
+    this.now = {
+      fullDay: date,
+      day: date.getDate(),
+      month: date.getMonth(), //getMonth returns 0-11
+      year: date.getFullYear(),
+      dayOfWeek: date.getDay() // returns 0-6, starts at Sunday
+    };
+    this.monthDelta = this.now.month - this.month;
+    this.yearDelta = this.now.year -this.year;
+    this.dayDelta = this.now.day - this.day;
   }
 
   dayOfWeek(){
+    debugger;
     const month = this.month;
     const day = this.day;
     const year = this.year;
-    const date = new Date();
-
-    let now = {
-      fullDay: date,
-      day: date.getDate(),
-      month: date.getMonth() + 1, //getMonth returns 0-11
-      year: date.getYear(),
-      dayOfWeek: date.getDay() // returns 0-6, starts at Sunday
-    };
-
-    let dayDelta = now.day - day;
-    dayDelta += this.dayMonth(now);
-
-    return this.daysOfWeek[(now.dayOfWeek - dayDelta) % 7];
+    let modDayOfWeek;
+    if(this.monthDelta === 0 && this.yearDelta === 0){
+      modDayOfWeek = (this.now.dayOfWeek - this.dayDelta) % 7;
+    } else if(this.yearDelta === 0) {
+      let dayDelta = this.dayMonth()
+      dayDelta += this.now.day;
+      dayDelta += (this.numberDays[this.month] - this.day);
+      modDayOfWeek = (this.now.dayOfWeek - dayDelta) % 7;
+    }
+    if(modDayOfWeek < 0){
+      modDayOfWeek = 7 + modDayOfWeek;
+    }
+    return this.daysOfWeek[modDayOfWeek];
   }
 
-  dayMonth(now){
-    const monthDelta = now.month - this.month;
+  dayMonth(){
     let lowMonth;
     let highMonth;
-    if(monthDelta>0){
-      highMonth = now.month;
+    if(this.monthDelta>0){
+      highMonth = this.now.month;
       lowMonth = this.month;
     } else {
       highMonth = this.month;
-      lowMonth = now.month;
+      lowMonth = this.now.month;
     }
     let dayCount = 0;
     for(let i=lowMonth + 1; i<highMonth; i++){

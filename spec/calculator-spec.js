@@ -58,4 +58,6 @@ describe('displayDayOfWeek', function(){
     console.log(date.dayMonth());
     expect(date.dayOfWeek()).toEqual("Monday");
   });
+
+  
 });

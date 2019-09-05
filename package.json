@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js",
+    "test": "karma start karma.conf.js --mode development",
     "build": "webpack --mode development",
     "start": "npm run build; webpack-dev-server --open --mode development",
     "watch": "webpack --watch",
