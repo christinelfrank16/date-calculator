@@ -50,14 +50,19 @@ describe('displayDayOfWeek', function(){
     const date = new dateCalc(month, day, year);
     expect(date.dayOfWeek()).toEqual("Saturday");
   });
-  it('should display day of week within the same year and in a different month', function(){
+  it('should display day of week within the same year and in a different month (past)', function(){
     const month = 5;
     const day = 13;
     const year = 2019;
     const date = new dateCalc(month, day, year);
-    console.log(date.dayMonth());
     expect(date.dayOfWeek()).toEqual("Monday");
   });
+  it('should display day of week within the same year and in a different month (future)', function(){
+    const month = 10;
+    const day = 13;
+    const year = 2019;
+    const date = new dateCalc(month, day, year);
+    expect(date.dayOfWeek()).toEqual("Sunday");
+  });
 
-  
 });

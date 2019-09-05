@@ -51,10 +51,7 @@ export class dateCalc {
     if(this.monthDelta === 0 && this.yearDelta === 0){
       modDayOfWeek = (this.now.dayOfWeek - this.dayDelta) % 7;
     } else if(this.yearDelta === 0) {
-      let dayDelta = this.dayMonth()
-      dayDelta += this.now.day;
-      dayDelta += (this.numberDays[this.month] - this.day);
-      modDayOfWeek = (this.now.dayOfWeek - dayDelta) % 7;
+      modDayOfWeek = (this.now.dayOfWeek - this.dayMonth()) % 7;
     }
     if(modDayOfWeek < 0){
       modDayOfWeek = 7 + modDayOfWeek;
@@ -65,16 +62,26 @@ export class dateCalc {
   dayMonth(){
     let lowMonth;
     let highMonth;
+    let dayCount = 0;
+    let isFuture = true;
     if(this.monthDelta>0){
+      dayCount += this.now.day;
+      dayCount += (this.numberDays[this.month] - this.day);
       highMonth = this.now.month;
       lowMonth = this.month;
     } else {
+      isFuture = false;
+      dayCount += this.day;
+      dayCount += (this.numberDays[this.now.month] - this.now.day);
       highMonth = this.month;
       lowMonth = this.now.month;
     }
-    let dayCount = 0;
     for(let i=lowMonth + 1; i<highMonth; i++){
       dayCount += this.numberDays[i];
-    } return dayCount;
+    }
+    if(!isFuture){
+      dayCount = -dayCount;
+    }
+    return dayCount;
   }
 }
