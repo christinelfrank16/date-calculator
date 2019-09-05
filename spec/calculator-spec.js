@@ -64,5 +64,12 @@ describe('displayDayOfWeek', function(){
     const date = new dateCalc(month, day, year);
     expect(date.dayOfWeek()).toEqual("Sunday");
   });
+  it('should display day of week of a day passed in a leap year', function(){
+    const month = 4;
+    const day = 13;
+    const year = 2022;
+    const date = new dateCalc(month, day, year);
+    expect(date.dayOfWeek()).toEqual("Wednesday");
+  });
 
 });
