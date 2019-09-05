@@ -13,6 +13,12 @@ export function dayValue (input){
     input = "Day value exceeds maximum number of days within a month";
   } return input;
 }
+
+export function monthValue (input){
+  if(input > 12){
+    input = "Month value exceeds maximum number of months within a year";
+  } return input;
+}
 // class dateCalc {
 //   constructor (month, day, year){
 //     this.month = month,
