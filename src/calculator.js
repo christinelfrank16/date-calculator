@@ -25,10 +25,11 @@ export class dateCalc {
     this.month = month,
     this.day = day,
     this.year = year
+    this.daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    this.numberDays = [31,28,31,30,31,30,31,31,30,31,30,31];
   }
 
   dayOfWeek(){
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const month = this.month;
     const day = this.day;
     const year = this.year;
@@ -42,8 +43,26 @@ export class dateCalc {
       dayOfWeek: date.getDay() // returns 0-6, starts at Sunday
     };
 
-    const dayDelta = now.day - day;
+    let dayDelta = now.day - day;
+    dayDelta += this.dayMonth(now);
 
-    return daysOfWeek[(now.dayOfWeek - dayDelta) % 7];
+    return this.daysOfWeek[(now.dayOfWeek - dayDelta) % 7];
+  }
+
+  dayMonth(now){
+    const monthDelta = now.month - this.month;
+    let lowMonth;
+    let highMonth;
+    if(monthDelta>0){
+      highMonth = now.month;
+      lowMonth = this.month;
+    } else {
+      highMonth = this.month;
+      lowMonth = now.month;
+    }
+    let dayCount = 0;
+    for(let i=lowMonth + 1; i<highMonth; i++){
+      dayCount += this.numberDays[i];
+    } return dayCount;
   }
 }
