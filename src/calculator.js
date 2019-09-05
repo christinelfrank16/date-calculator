@@ -8,6 +8,11 @@ export function makeDate(input){
     }return input;
   }
 
+export function dayValue (input){
+  if(input >31){
+    input = "Day value exceeds maximum number of days within a month";
+  } return input;
+}
 // class dateCalc {
 //   constructor (month, day, year){
 //     this.month = month,
