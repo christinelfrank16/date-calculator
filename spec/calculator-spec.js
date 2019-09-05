@@ -4,4 +4,12 @@ describe ('userInput', function(){
     const input = "8%$$";
     expect (makeDate(input)).toEqual("Invalid Input");
   });
+  it('should only accept positive numbers', function(){
+    const input = -30;
+    expect(makeDate(input)).toEqual("Invalid Input");
+  });
+  it('should only accept integers', function(){
+    const input = .5;
+    expect(makeDate(input)).toEqual("Invalid Input");
+  });
 });
